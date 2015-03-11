@@ -11,7 +11,7 @@ public class JsonToJava {
 		Gson gson = new GsonBuilder().create();
 		gson.toJson("Hello!", System.out);
 		
-		try(Reader reader = new InputStreamReader(JsonToJava.class.getResourceAsStream("C:\Users\Stulli\Desktop\Skóli\Þróun Hugbúnaðar\685.json"), "UTF-8")){
+		try(Reader reader = new InputStreamReader(JsonToJava.class.getResourceAsStream("C:\\Users\\Stulli\\Desktop\\Skóli\\Þróun Hugbúnaðar\\685.json"), "UTF-8")){
             Player p = gson.fromJson(reader, Player.class);
             System.out.println(p.toString());
         }
