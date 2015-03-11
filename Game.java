@@ -3,6 +3,8 @@ public class Game {
 	
 	private Team homeTeam;
 	private Team awayTeam;
+	private int htScore;
+	private int atScore;
 
 	public Game(Team homeTeam, Team awayTeam) {
 		this.homeTeam = homeTeam;
