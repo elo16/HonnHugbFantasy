@@ -11,16 +11,27 @@ public class Stats {
 	private int appearances;
 	private int assists;
 
+	public Stats(){
+		yCards = 0; 
+		rCards = 0;
+		goals = 0;
+		ownGoals = 0;
+		assists = 0;
+		cleanSheets = 0;
+		penaltySaves = 0;
+		dreamTeam = 0;
+		appearances = 0;
+	}
 	public Stats (int yCards, int rCards, int goals,int ownGoals, int assists, int cleanSheets, int penaltySaves, int dreamTeam,int appearances){
-		this.yCards = yCards; 
-		this.rCards = rCards;
-		this.goals = goals;
-		this.ownGoals = ownGoals;
-		this.assists = assists;
-		this.cleanSheets = cleanSheets;
-		this.penaltySaves = penaltySaves;
-		this.dreamTeam = dreamTeam;
-		this.appearances = appearances;
+		yCards = yCards; 
+		rCards = rCards;
+		goals = goals;
+		ownGoals = ownGoals;
+		assists = assists;
+		cleanSheets = cleanSheets;
+		penaltySaves = penaltySaves;
+		dreamTeam = dreamTeam;
+		appearances = appearances;
 	}
 	
 	public void setyCards (int yCards ){
