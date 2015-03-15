@@ -3,9 +3,9 @@ public class League {
 	private Team[] Teams;
 	private int nmbrOfTms;
 	
-	public League(Team[]){
-		this.Teams = Team;
-		this.nmbrOfTms = Team.length();
+	public League(Team[] t){
+		this.Teams = t;
+		this.nmbrOfTms = t.length();
 	}
 	
 	public static Game[] makeFixtures(League lge){

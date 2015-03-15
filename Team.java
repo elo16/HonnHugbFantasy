@@ -5,6 +5,7 @@ public class Team {
 	private int goalsAgainst;
 	private int rank;
 	private double homeAdvantage;
+	private Player[] players;
 
 	public Team(String teamName, int goalsFor, int goalsAgainst, int rank,
 			double homeAdvantage) {
@@ -19,6 +20,10 @@ public class Team {
 		this.teamName = teamName;
 	}
 
+	public int length(){
+		return players.length();
+	}
+	
 	public String getTeamName() {
 		return teamName;
 	}
