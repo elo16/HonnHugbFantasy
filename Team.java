@@ -4,16 +4,17 @@ public class Team {
 	private int goalsFor;
 	private int goalsAgainst;
 	private int rank;
-	private double homeAdvantage;
+	//private double homeAdvantage;
 	private Player[] players;
 
-	public Team(String teamName, int goalsFor, int goalsAgainst, int rank,
-			double homeAdvantage) {
+	public Team(String teamName, int goalsFor, int goalsAgainst, int rank/*,
+			double homeAdvantage*/, Player[] players) {
 		this.teamName = teamName;
 		this.goalsFor = goalsFor;
 		this.goalsAgainst = goalsAgainst;
 		this.rank = rank;
-		this.homeAdvantage = homeAdvantage;
+		//this.homeAdvantage = homeAdvantage;
+		this.players = players;
 	}
 
 	public void setTeamName(String teamName) {
@@ -21,7 +22,7 @@ public class Team {
 	}
 
 	public int length(){
-		return players.length();
+		return players.length;
 	}
 	
 	public String getTeamName() {
