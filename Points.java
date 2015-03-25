@@ -33,17 +33,19 @@ public class Points {
 	this.player = null;
 	}
 	
-	public Points(Player player){
-	this.appearance = 0;
-	this.goalScored = 0;
-	this.goalAssist = 0;
-	this.cleanSheet = 0;
-	this.penaltySaved = 0;
-	this.missedPenalty = 0;
-	this.yellowCards = 0;
-	this.redCards = 0;
-	this.ownGoal = 0;
-	this.inDreamTeam = 0;
+	public Points(int yCards, int rCards, int goals, int ownGoals,int assists,
+				  int cleanSheets, int penaltySaves, int penaltyMisses, int dreamTeam, int appearances,
+				  int totalPoints, Player player){
+	this.appearance = appearances;
+	this.goalScored = goals;
+	this.goalAssist = assists;
+	this.cleanSheet = cleanSheets;
+	this.penaltySaved = penaltySaves;
+	this.missedPenalty = penaltyMisses;
+	this.yellowCards = yCards;
+	this.redCards = rCards;
+	this.ownGoal = ownGoals;
+	this.inDreamTeam = dreamTeam;
 	this.player = player;
 	}
 	

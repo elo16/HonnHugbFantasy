@@ -36,6 +36,7 @@ public class Player {
 	public void setStats(Stats stats){
 		this.stats = stats;
 	}
+	
 	public Stats getStats(){
 		return stats;
 	}

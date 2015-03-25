@@ -1,4 +1,3 @@
-
 public class Stats {
 
 	private int yCards;
@@ -7,9 +6,12 @@ public class Stats {
 	private int ownGoals;
 	private int cleanSheets;
 	private int penaltySaves;
+	private int penaltyMisses;
 	private int dreamTeam;
 	private int appearances;
 	private int assists;
+	private int totalPoints;
+	private Player player;
 
 	public Stats(){
 		yCards = 0; 
@@ -19,19 +21,25 @@ public class Stats {
 		assists = 0;
 		cleanSheets = 0;
 		penaltySaves = 0;
+		penaltyMisses = 0;
 		dreamTeam = 0;
 		appearances = 0;
+		totalPoints = 0;
+		player = null;
 	}
-	public Stats (int yCards, int rCards, int goals,int ownGoals, int assists, int cleanSheets, int penaltySaves, int dreamTeam,int appearances){
-		yCards = yCards; 
-		rCards = rCards;
-		goals = goals;
-		ownGoals = ownGoals;
-		assists = assists;
-		cleanSheets = cleanSheets;
-		penaltySaves = penaltySaves;
-		dreamTeam = dreamTeam;
-		appearances = appearances;
+	public Stats (int yCards, int rCards, int goals,int ownGoals, int assists, int cleanSheets, int penaltySaves, int penaltyMisses, int dreamTeam, int appearances, int totalPoints, Player player){
+		this.yCards = yCards; 
+		this.rCards = rCards;
+		this.goals = goals;
+		this.ownGoals = ownGoals;
+		this.assists = assists;
+		this.cleanSheets = cleanSheets;
+		this.penaltySaves = penaltySaves;
+		this.penaltyMisses = penaltyMisses;
+		this.dreamTeam = dreamTeam;
+		this.appearances = appearances;
+		this.totalPoints = totalPoints;
+		this.player = player;
 	}
 	
 	public void setyCards (int yCards ){
@@ -76,6 +84,12 @@ public class Stats {
 	public int getPenaltySaves(){
 		return penaltySaves ;
 	}
+	public void setPenaltyMisses (int penaltyMisses ){
+		this. penaltyMisses = penaltyMisses ;
+	}
+	public int getPenaltyMisses(){
+		return penaltyMisses ;
+	}
 	public void setDreamTeam (int dreamTeam ){
 		this. dreamTeam = dreamTeam ;
 	}
@@ -87,5 +101,12 @@ public class Stats {
 	}
 	public int getAppearances(){
 		return appearances ;
+	}
+	public int getTotalPoints(){
+		return totalPoints;
+	}
+	public void setTotalPoints(){
+		Points points = new Points(yCards, rCards, goals, ownGoals, assists, cleanSheets, penaltySaves, penaltyMisses, dreamTeam, appearances, totalPoints, player);
+		this.totalPoints = points.getPoints();
 	}
 }
