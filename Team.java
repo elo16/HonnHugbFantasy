@@ -4,11 +4,19 @@ public class Team {
 	private int goalsFor;
 	private int goalsAgainst;
 	private int rank;
-	//private double homeAdvantage;
 	private Player[] players;
+	private int totalPlayers;
 
-	public Team(String teamName, int goalsFor, int goalsAgainst, int rank/*,
-			double homeAdvantage*/, Player[] players) {
+	public Team(){
+		this.teamName = null;
+		this.goalsFor = 0;
+		this.goalsAgainst = 0;
+		this.rank = -1;
+		this.players = null;
+		this.totalPlayers = 0;
+	}
+	
+	public Team(String teamName, int goalsFor, int goalsAgainst, int rank, Player[] players) {
 		this.teamName = teamName;
 		this.goalsFor = goalsFor;
 		this.goalsAgainst = goalsAgainst;
@@ -41,6 +49,9 @@ public class Team {
 		return rank;
 	}
 
+	public int getTotalPlayers() {
+		return totalPlayers;
+	}
 	public void setGoalsFor(int goalsFor) {
 		this.goalsFor = goalsFor;
 	}
@@ -51,5 +62,20 @@ public class Team {
 
 	public void setRank(int rank) {
 		this.rank = rank;
+	}
+	
+	public void setTotalPlayers(int TP){
+		this.totalPlayers = TP;
+	}
+	
+	public void addPlayer(Player newPlayer){
+		Player[] oldArray = this.players;
+		Player[] newArray = new Player[this.totalPlayers + 1];
+		for(int i = 0; i < this.totalPlayers; i++){
+			newArray[i] = oldArray[i];
+		}
+		this.totalPlayers++;
+		newArray[this.totalPlayers] = newPlayer;
+		this.players = newArray;
 	}
 }
