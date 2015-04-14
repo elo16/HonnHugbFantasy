@@ -7,10 +7,9 @@ import org.json.*;
 
 public class JsonToObject {
 	
-	public static void main(String[] args) throws IOException {
-
+	public static Player run(String baseurl) throws IOException {
     // Connect to the URL using java's native library
-    URL url = new URL("http://fantasy.premierleague.com/web/api/elements/1/");
+    URL url = new URL(baseurl);
     HttpURLConnection request = (HttpURLConnection) url.openConnection();
     request.connect();
 
@@ -23,28 +22,9 @@ public class JsonToObject {
     
     //JsonObject rootobj = root.getAsJsonObject(); //may be an array, may be an object.
     //String first_name = rootobj.get("first_name").getAsString();//just grab the first_name
-    System.out.println(player.season_history[2][1]);
+    return player;
 	}
 	
-	public class Player {
-		
-		private String first_name;
-		private String second_name;
-		private String team_name;
-		private String [][] season_history;
-		private String minutes;
-		private String goals_scored;
-		private String assists;
-		private String clean_sheets;
-		private String goals_conceded;
-		private String own_goals;
-		private String penalties_saved;
-		private String penalties_missed;
-		private String yellow_cards;
-		private String red_cards;
-		private String saves;
-		
-		
-	}
+	
 
 }
