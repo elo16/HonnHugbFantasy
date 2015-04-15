@@ -23,7 +23,7 @@ public class JsonToObject {
     //JsonObject rootobj = root.getAsJsonObject(); //may be an array, may be an object.
     //String first_name = rootobj.get("first_name").getAsString();//just grab the first_name
     return player;
-	}
+}
 	
 	
 
