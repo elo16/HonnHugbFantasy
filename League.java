@@ -141,10 +141,17 @@ public class League {
 	public static void playRound(League leag){
 		int t = leag.getPlayedGamesCount();
 		Game[] games = leag.getFixtures();
-		for(int i = t; i<t+5; i++){
-			games[i].playGame();
-			t++;
+		if(t == 0){
+			for(int i = t; i<t+5; i++){
+				games[i].playGame();
+			}
+		}else{
+			for(int i = t+1; i<t+5; i++){
+				games[i].playGame();
+			}
+			
 		}
+		leag.setPlayedGamesCount(t+5);
 	}
 }
 
