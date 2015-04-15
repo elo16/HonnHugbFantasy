@@ -65,18 +65,18 @@ public class Points {
 		int sumPoints = 0;
 		sumPoints += goalAssist *3;
 		sumPoints += ownGoal * -2;
-		String pos = player.getPosition().toLowerCase();
-		if(pos.equals("defender") || pos.equals("goalkeeper")){sumPoints += goalScored *6;}
-		if(pos.equals("midfielder")){sumPoints += goalScored *5;}
-		if(pos.equals("forward")){sumPoints += goalScored *4;}
+		//String pos = player.getPosition().toLowerCase();
+		//if(pos.equals("defender") || pos.equals("goalkeeper")){sumPoints += goalScored *6;}
+		//if(pos.equals("midfielder")){sumPoints += goalScored *5;}
+		//if(pos.equals("forward")){sumPoints += goalScored *4;}
 		return sumPoints;
 	}
 	
 	public int cleanSheetPoints(int cleanSheet, Player player){
 		int sumPoints = 0;
-		String pos = player.getPosition().toLowerCase();
-		if(pos.equals("defender") || pos.equals("goalkeeper")){sumPoints += cleanSheet*4;}
-		if(pos.equals("midfielder")){sumPoints += cleanSheet *1;}
+		//String pos = player.getPosition().toLowerCase();
+		//if(pos.equals("defender") || pos.equals("goalkeeper")){sumPoints += cleanSheet*4;}
+		//if(pos.equals("midfielder")){sumPoints += cleanSheet *1;}
 		return sumPoints;
 	}
 	

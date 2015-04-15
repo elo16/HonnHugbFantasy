@@ -80,7 +80,7 @@ public class League {
 		// Sorts the players into the teams
 		for(int i = 0; i < teams.length; i++){
 			String teamName = teams[i].getTeamName();
-			for(int j = 0; j < 695; j++){
+			for(int j = 0; j < players.length; j++){
 				if(teamName.equals(players[j].getTeam_name())){
 					teams[i].addPlayer(players[j]);
 				}
@@ -149,8 +149,11 @@ public class League {
 			for(int i = t+1; i<t+5; i++){
 				games[i].playGame();
 			}
-			
 		}
 		leag.setPlayedGamesCount(t+5);
+	}
+	
+	public static void main(String[] args){
+		makeLeag();
 	}
 }
