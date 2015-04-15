@@ -154,4 +154,3 @@ public class League {
 		leag.setPlayedGamesCount(t+5);
 	}
 }
-
