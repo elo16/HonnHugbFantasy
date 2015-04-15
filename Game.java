@@ -9,15 +9,15 @@ public class Game {
 	public Game(){
 		homeTeam = null;
 		awayTeam = null;
-		htScore = -1;
-		atScore = -1;
+		htScore = 0;
+		atScore = 0;
 	}
 	
-	public Game(Team homeTeam, Team awayTeam, int htScore, int atScore) {
+	public Game(Team homeTeam, Team awayTeam) {
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
-		this.htScore = htScore;
-		this.atScore = atScore;
+		this.htScore = 0;
+		this.atScore = 0;
 	}
 	
 	public void setHomeTeam(Team homeTeam) {
@@ -44,5 +44,9 @@ public class Game {
 	}
 	public int getatScore() {
 		return this.atScore;
+	}
+	
+	public void playGame(){
+		
 	}
 }

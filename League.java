@@ -4,10 +4,12 @@ import java.io.IOException;
 public class League {
 	public Team[] Teams;
 	public Game[] Fixtures;
+	public int playedGamesCount;
 	
 	public League(){
 		this.Teams = null;
 		this.Fixtures = null;
+		this.playedGamesCount = 0;
 	}
 	
 	public void setTeams(Team[] teams){
@@ -22,9 +24,18 @@ public class League {
 		this.Fixtures = Fix;
 	}
 	
-	public Game[] getFixture(){
+	public Game[] getFixtures(){
 		return this.Fixtures;
 	}
+	
+	public void setPlayedGamesCount(int N){
+		this.playedGamesCount = N;
+	}
+	
+	public int getPlayedGamesCount(){
+		return this.playedGamesCount;
+	}
+	
 	public static Player[] makePlayers(){
 		Player[] players = new Player[695];
 		for(int i = 1; i <696; i++){
@@ -46,23 +57,23 @@ public class League {
 			switch(i){
 			case 0: teams[i].setTeamName("Arsenal");
 				break;
-			case 1: teams[i].setTeamName("Arsenal");
+			case 1: teams[i].setTeamName("Chelsea");
 				break;
-			case 2: teams[i].setTeamName("Arsenal");
+			case 2: teams[i].setTeamName("Liverpool");
 				break;
-			case 3: teams[i].setTeamName("Arsenal");
+			case 3: teams[i].setTeamName("Manchester United");
 				break;
-			case 4: teams[i].setTeamName("Arsenal");
+			case 4: teams[i].setTeamName("Manchester City");
 				break;
-			case 5: teams[i].setTeamName("Arsenal");
+			case 5: teams[i].setTeamName("Newcastle United");
 				break;
-			case 6: teams[i].setTeamName("Arsenal");
+			case 6: teams[i].setTeamName("Southampton");
 				break;
-			case 7: teams[i].setTeamName("Arsenal");
+			case 7: teams[i].setTeamName("Swansea City");
 				break;
-			case 8: teams[i].setTeamName("Arsenal");
+			case 8: teams[i].setTeamName("Tottenham");
 				break;
-			case 9: teams[i].setTeamName("Arsenal");
+			case 9: teams[i].setTeamName("West Ham");
 				break;
 			}	
 		}
@@ -115,17 +126,25 @@ public class League {
 			t = games[a];
 			games[a] = games[b];
 			games[b] = t;
-			
 		}
 	}
-
-	public static void main(String[] args){
+	
+	public static League makeLeag(){
 		League leag = new League();
 		Team[] teams = makeTeams(makePlayers());
 		leag.setTeams(teams);
 		Game[] Fix = makeFixtures(teams);
 		leag.setFixtures(Fix);
-		
+		return leag;
+	}
+	
+	public static void playRound(League leag){
+		int t = leag.getPlayedGamesCount();
+		Game[] games = leag.getFixtures();
+		for(int i = t; i<t+5; i++){
+			games[i].playGame();
+			t++;
+		}
 	}
 }
 
