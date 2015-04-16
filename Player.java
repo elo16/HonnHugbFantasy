@@ -22,7 +22,8 @@ public class Player {
 	private String penalties_missed;
 	private String yellow_cards;
 	private String red_cards;
-	private String saves;		
+	private String saves;
+	private Double[] odds;
 	
 	public Player(){
 		this.first_name = null;
@@ -40,13 +41,15 @@ public class Player {
 		this.yellow_cards = null;
 		this.red_cards = null;
 		this.saves = null;
+		this.odds = null;
+		generateOdds(); //veit ekki alveg hvort að þetta sé löglegt :S
 	}
 	
 	public Player(String first_name, String second_name, String team_name, 
 			String[][] season_history,String minutes, String goals_scored,
 			String assists, String clean_sheets,String goals_conceded, 
 			String own_goals, String penalties_saved,String penalties_missed,
-			String yellow_cards, String red_cards, String saves)
+			String yellow_cards, String red_cards, String saves, Double[] odds)
 	{
 		this.first_name = first_name;
 		this.second_name = second_name;
@@ -63,6 +66,7 @@ public class Player {
 		this.yellow_cards = yellow_cards;
 		this.red_cards = red_cards;
 		this.saves = saves;
+		this.odds = odds;
 	}
 	
 	public void setFirst_name(String first_name){ this.first_name = first_name; }
@@ -80,6 +84,7 @@ public class Player {
 	public void setYellow_cards(String yellow_cards){ this.yellow_cards = yellow_cards; }
 	public void setRed_card(String red_cards){ this.red_cards = red_cards; }
 	public void setSaves(String saves){ this.saves = saves; }
+	public void setOdds(Double[] odds){this.odds = odds; }
 	
 	public String getFirst_name(){ return this.first_name; }
 	public String getSecond_name(){ return this.second_name; }
@@ -96,6 +101,20 @@ public class Player {
 	public String getYellow_cards(){ return this.yellow_cards; }
 	public String getRed_cards(){ return this.red_cards; }
 	public String getSaves(){ return this.saves; }
+	public Double[] getOdds(){ return this.odds; }
 	
+	
+	public void generateOdds(){
+		String[][] history = getSeason_history(); 
+		Double[] odds = new Double[6];
+		double goals = 0;
+		double minutes = 0;
+		for(int i = 0; i > history.length; i++){
+			goals += Double.parseDouble(history[i][2]);
+			minutes += Double.parseDouble(history[i][1]);
+		}
+		double oddsscoring = goals/minutes;
+		odds[0] = oddsscoring;
+	}
 }
 
