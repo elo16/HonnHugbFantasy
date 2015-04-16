@@ -128,7 +128,7 @@ public class League {
 			games[3].setAwayTeam(teams[8]);
 			games[4].setHomeTeam(teams[4]);
 			games[4].setAwayTeam(teams[9]);
-			rounds[i].setgames(games);
+			rounds[i].setGames(games);
 			
 			//1=5=6=7=8=9=4=3=2=1
 			//5=6=7=8=9=4=3=2=1
