@@ -9,7 +9,7 @@ public class Round {
 		this.Games = games;
 	}
 	
-	public void setgames(Game[] games){
+	public void setGames(Game[] games){
 		this.Games = games;
 	}
 	
@@ -18,7 +18,11 @@ public class Round {
 	}
 	
 	public void playRound(){
-		
+		Game[] g = this.getGames();
+		for(int i = 0; i < g.length; i++){
+			g[i].playGame();
+		}
+		this.setGames(g);
 	}
 
 }
