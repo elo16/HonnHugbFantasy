@@ -43,6 +43,7 @@ public class Player {
 		this.saves = null;
 		this.odds = null;
 		generateOdds(); //veit ekki alveg hvort að þetta sé löglegt :S
+						//ef ekki þá köllum við bara á þetta sem player.generateodds(); inní game
 	}
 	
 	public Player(String first_name, String second_name, String team_name, 
@@ -109,12 +110,37 @@ public class Player {
 		Double[] odds = new Double[6];
 		double goals = 0;
 		double minutes = 0;
+		double assists = 0;
+		double cleansheet = 0;
+		double owngoals = 0;
+		double yellowcards = 0;
+		double redcards = 0;
+		
 		for(int i = 0; i > history.length; i++){
-			goals += Double.parseDouble(history[i][2]);
 			minutes += Double.parseDouble(history[i][1]);
+			goals += Double.parseDouble(history[i][2]);
+			assists += Double.parseDouble(history[i][3]);
+			cleansheet += Double.parseDouble(history[i][4]);
+			owngoals += Double.parseDouble(history[i][6]);
+			yellowcards += Double.parseDouble(history[i][9]);
+			redcards += Double.parseDouble(history[i][9]);
 		}
-		double oddsscoring = goals/minutes;
+		//deilt með 90 til að reikna líkur á hverjum leik en ekki hverri mínútu
+		double oddsscoring = goals/(minutes/90); 
+		double oddsassisting = assists/(minutes/90);
+		double oddscleansheet = cleansheet/(minutes/90);
+		double oddsowngoals = owngoals/(minutes/90);
+		double oddsyellowcards = yellowcards/(minutes/90);
+		double oddsredcards = redcards/(minutes/90);
+		
 		odds[0] = oddsscoring;
+		odds[1] = oddsassisting;
+		odds[2] = oddscleansheet;
+		odds[3] = oddsowngoals;
+		odds[4] = oddsyellowcards;
+		odds[5] = oddsredcards;
+
+		setOdds(odds);
 	}
 }
 
