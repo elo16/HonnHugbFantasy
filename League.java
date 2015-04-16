@@ -4,12 +4,16 @@ import java.io.IOException;
 public class League {
 	public Team[] Teams;
 	public Game[] Fixtures;
+	public Round[] Rounds;
 	public int playedGamesCount;
+	public int playedRoundsCount;
 	
 	public League(){
 		this.Teams = null;
 		this.Fixtures = null;
+		this.Rounds = null;
 		this.playedGamesCount = 0;
+		this.playedRoundsCount = 0;
 	}
 	
 	public void setTeams(Team[] teams){
@@ -24,8 +28,16 @@ public class League {
 		this.Fixtures = Fix;
 	}
 	
+	public void setRounds(Round[] rounds){
+		this.Rounds = rounds;
+	}
+	
 	public Game[] getFixtures(){
 		return this.Fixtures;
+	}
+	
+	public Round[] getRounds(){
+		return this.Rounds;
 	}
 	
 	public void setPlayedGamesCount(int N){
@@ -33,6 +45,14 @@ public class League {
 	}
 	
 	public int getPlayedGamesCount(){
+		return this.playedGamesCount;
+	}
+	
+	public void setPlayedRoundsCount(int N){
+		this.playedGamesCount = N;
+	}
+	
+	public int getPlayedRoundsCount(){
 		return this.playedGamesCount;
 	}
 	
@@ -80,7 +100,7 @@ public class League {
 		// Sorts the players into the teams
 		for(int i = 0; i < teams.length; i++){
 			String teamName = teams[i].getTeamName();
-			for(int j = 0; j < players.length; j++){
+			for(int j = 0; j < 500; j++){
 				if(teamName.equals(players[j].getTeam_name())){
 					teams[i].addPlayer(players[j]);
 				}
@@ -89,6 +109,48 @@ public class League {
 		return teams;
 	}
 	
+	public static Round[] makeRounds(Team[] teams){
+		Round[] rounds = new Round[9];
+		
+		for(int i = 0; i < rounds.length; i++){
+			rounds[i] = new Round();
+			Game[] games = new Game[5];
+			for(int j = 0; j < games.length; j++){
+				games[j] = new Game();
+			}
+			games[0].setHomeTeam(teams[0]);
+			games[0].setAwayTeam(teams[5]);
+			games[1].setHomeTeam(teams[1]);
+			games[1].setAwayTeam(teams[6]);
+			games[2].setHomeTeam(teams[2]);
+			games[2].setAwayTeam(teams[7]);
+			games[3].setHomeTeam(teams[3]);
+			games[3].setAwayTeam(teams[8]);
+			games[4].setHomeTeam(teams[4]);
+			games[4].setAwayTeam(teams[9]);
+			rounds[i].setgames(games);
+			
+			//1=5=6=7=8=9=4=3=2=1
+			//5=6=7=8=9=4=3=2=1
+			Team temp = teams[1];
+			teams[1] = teams[5];
+			teams[5] = teams[6];
+			teams[6] = teams[7];
+			teams[7] = teams[8];
+			teams[8] = teams[9];
+			teams[9] = teams[4];
+			teams[4] = teams[3];
+			teams[3] = teams[2];
+			teams[2] = temp;
+			
+			}		
+		
+		return rounds;
+	}
+	
+	/*
+	*
+	*
 	public static Game[] makeFixtures(Team[] teams){
 		Game[] games = new Game[90];
 		int gameCount = 0;
@@ -97,21 +159,24 @@ public class League {
 				games[gameCount] = new Game();
 				games[gameCount].setHomeTeam(teams[i]);
 				games[gameCount].setAwayTeam(teams[j]);
-				
+				System.out.println(i + " " + j);
 				games[gameCount+45] = new Game();
 				games[gameCount+45].setHomeTeam(teams[j]);
 				games[gameCount+45].setAwayTeam(teams[i]);
 				
-				gameCount += 2;
+				gameCount += 1;
 			}
 		}
-		shaker(games);
+		
+		//shaker(games);
 		return games;
 	}
 	
+		
+		
 	public static void shaker(Game[]games){
-		int n = 2000;
-		while(n>=1){
+		int n = 0;
+		while(n>=90){
 			int a = (int) Math.floor(Math.random()*45);
 			int b = (int) Math.floor(Math.random()*45);
 			
@@ -126,22 +191,27 @@ public class League {
 			t = games[a];
 			games[a] = games[b];
 			games[b] = t;
+			n++;
 		}
 	}
+	*
+	*
+	*/
 	
 	public static League makeLeag(){
 		League leag = new League();
-		Team[] teams = makeTeams(makePlayers());
+		Player[] allPlayers = makePlayers();
+		Team[] teams = makeTeams(allPlayers);
 		leag.setTeams(teams);
-		Game[] Fix = makeFixtures(teams);
-		leag.setFixtures(Fix);
+		Round[] allRounds = makeRounds(teams);
+		leag.setRounds(allRounds);
 		return leag;
 	}
 	
 	public static void playRound(League leag){
-		int t = leag.getPlayedGamesCount();
-		Game[] games = leag.getFixtures();
-		if(t == 0){
+		int t = leag.getPlayedRoundsCount();
+		Round[] rounds = leag.getRounds();
+		/*if(t == 0){
 			for(int i = t; i<t+5; i++){
 				games[i].playGame();
 			}
@@ -149,11 +219,14 @@ public class League {
 			for(int i = t+1; i<t+5; i++){
 				games[i].playGame();
 			}
-		}
-		leag.setPlayedGamesCount(t+5);
+		}*/
+		rounds[t].playRound();
+		leag.setPlayedRoundsCount(t+1);
 	}
 	
 	public static void main(String[] args){
-		makeLeag();
+		
+		League mainLeague = makeLeag();
+		System.out.println("fukkin virkar maður!!");
 	}
 }

@@ -96,5 +96,6 @@ public class Player {
 	public String getYellow_cards(){ return this.yellow_cards; }
 	public String getRed_cards(){ return this.red_cards; }
 	public String getSaves(){ return this.saves; }
+	
 }
 

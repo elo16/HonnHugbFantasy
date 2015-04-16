@@ -69,13 +69,14 @@ public class Team {
 	}
 	
 	public void addPlayer(Player newPlayer){
-		Player[] oldArray = this.players;
+		Player[] oldArray = this.players;	
 		Player[] newArray = new Player[this.totalPlayers + 1];
 		for(int i = 0; i < this.totalPlayers; i++){
 			newArray[i] = oldArray[i];
 		}
+		
 		this.totalPlayers++;
-		newArray[this.totalPlayers] = newPlayer;
+		newArray[this.totalPlayers-1] = newPlayer;
 		this.players = newArray;
 	}
 }
