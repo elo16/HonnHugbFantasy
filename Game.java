@@ -5,6 +5,8 @@ public class Game {
 	private Team awayTeam;
 	private int htScore;
 	private int atScore;
+	Player[] goalScorers;
+	Player[] assisters;
 
 	public Game(){
 		homeTeam = null;
@@ -33,10 +35,10 @@ public class Game {
 		return this.awayTeam;
 	}
 	
-	public void sethtScore(int htScore){ 
+	public void set_htScore(int htScore){ 
 		this.htScore = htScore;
 	}
-	public void setatScore(int atScore){ 
+	public void set_atScore(int atScore){ 
 		this.atScore = atScore;
 	}
 	public int gethtScore() {
@@ -46,7 +48,56 @@ public class Game {
 		return this.atScore;
 	}
 	
+	public void setGoalScorers(Player[] p){
+		this.goalScorers = p;
+	}
+	public Player[] getGoalScorers(){
+		return this.goalScorers;
+	}
+	public void setAssisters(Player[] p){
+		this.assisters = p;
+	}
+	public Player[] getAssisters(){
+		return this.assisters;
+	}
+	
+	public static Player[] chooseScorers(Player[] home, Player[] away, int homeGoals, int awayGoals){
+		Player[] scorers = new Player[homeGoals+awayGoals];
+		for(int i = 0; i < homeGoals; i++){
+			
+		}
+		for(int i = 0; i < awayGoals; i++){
+			
+		}
+		return scorers;
+	} 
+	
 	public void playGame(){
+		Player[] homePl = this.homeTeam.getPlayers();
+		Player[] awayPl = this.awayTeam.getPlayers();
+		int homeTgoalChance = 0;
+		int awayTgoalChance = 0;
 		
+		int goals = 0; int minutes = 0;
+		for(int i = 0; i < homePl.length; i++){
+			goals += Integer.parseInt(homePl[i].getGoals_scored());
+			minutes += Integer.parseInt(homePl[i].getMinutes());
+		}
+		homeTgoalChance = goals/minutes;
+		
+		goals = 0; minutes = 0;
+		for(int i = 0; i < awayPl.length; i++){
+			goals += Integer.parseInt(awayPl[i].getGoals_scored());
+			minutes += Integer.parseInt(awayPl[i].getMinutes());
+		}
+		awayTgoalChance = goals/minutes;
+		
+		int homeGoals = (int)Math.floor(Math.random()* homeTgoalChance);
+		int awayGoals = (int)Math.floor(Math.random()* awayTgoalChance);
+		set_htScore(homeGoals);
+		set_atScore(awayGoals);
+		
+		Player[] scorers = new Player[homeGoals+awayGoals];
+		scorers = chooseScorers(homePl, awayPl, homeGoals, awayGoals);
 	}
 }

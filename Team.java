@@ -68,6 +68,9 @@ public class Team {
 		this.totalPlayers = TP;
 	}
 	
+	public Player[] getPlayers(){
+		return this.players;
+	}
 	public void addPlayer(Player newPlayer){
 		Player[] oldArray = this.players;	
 		Player[] newArray = new Player[this.totalPlayers + 1];
