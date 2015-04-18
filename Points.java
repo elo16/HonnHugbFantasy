@@ -6,6 +6,7 @@
  * @author Stulli
  *
  */
+//vantar að bæta við saves í Points classann
 public class Points {
 	int appearance;
 	int goalScored;
@@ -89,14 +90,9 @@ public class Points {
 	
 	public int yellowsAndReds(int yellowCards, int redCards){
 		int sumPoints = 0;
-		/*   Hér þarf að ákveða hvort á not línur 91&92 eða if setninguna
 		sumPoints += yellowCards *-1;
 		sumPoints += redCards *-3;
-		if(redCards > 0){
-			sumPoints += redCards *-3;
-		}else{
-			sumPoints += yellowCards *-1;
-		}*/
+		//ákvað að hafa þetta svona þar sem það er bara hægt að fá eitt af öðru hvoru
 		return sumPoints;
 	}
 }

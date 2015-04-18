@@ -5,6 +5,7 @@ public class Stats {
 	private int goals;
 	private int ownGoals;
 	private int cleanSheets;
+	private int saves;
 	private int penaltySaves;
 	private int penaltyMisses;
 	private int dreamTeam;
@@ -20,6 +21,7 @@ public class Stats {
 		ownGoals = 0;
 		assists = 0;
 		cleanSheets = 0;
+		saves = 0;
 		penaltySaves = 0;
 		penaltyMisses = 0;
 		dreamTeam = 0;
@@ -27,19 +29,24 @@ public class Stats {
 		totalPoints = 0;
 		player = null;
 	}
-	public Stats (int goals, int assists, int ownGoals, int yCards, int rCards, int cleanSheets, int penaltySaves, int penaltyMisses, int dreamTeam, int appearances, int totalPoints, Player player){
+	public Stats (int goals, int assists, int ownGoals, int yCards, 
+	int rCards, int cleanSheets, int saves, int penaltySaves, int penaltyMisses, 
+	int dreamTeam, int appearances,	int totalPoints, Player player)
+	{
 		this.yCards = yCards; 
 		this.rCards = rCards;
 		this.goals = goals;
 		this.ownGoals = ownGoals;
 		this.assists = assists;
 		this.cleanSheets = cleanSheets;
+		this.saves = saves;
 		this.penaltySaves = penaltySaves;
 		this.penaltyMisses = penaltyMisses;
 		this.dreamTeam = dreamTeam;
 		this.appearances = appearances;
 		this.totalPoints = totalPoints;
 		this.player = player;
+		setTotalPoints();
 	}
 	
 	public void setyCards (int yCards ){
@@ -78,6 +85,12 @@ public class Stats {
 	public int getCleanSheets(){
 		return cleanSheets ;
 	}
+	public void setSaves (int saves ){
+		this. saves = saves ;
+	}
+	public int getSaves(){
+		return saves ;
+	}
 	public void setPenaltySaves (int penaltySaves ){
 		this. penaltySaves = penaltySaves ;
 	}
@@ -105,7 +118,7 @@ public class Stats {
 	public int getTotalPoints(){
 		return totalPoints;
 	}
-	public void setTotalPoints(){
+	public void setTotalPoints(){ // vantar að bæta inn saves í points classan
 		Points points = new Points(yCards, rCards, goals, ownGoals, assists, cleanSheets, penaltySaves, penaltyMisses, dreamTeam, appearances, totalPoints, player);
 		this.totalPoints = points.getPoints();
 	}

@@ -61,6 +61,7 @@ public class League {
 		for(int i = 1; i <696; i++){
 			try {
 				players[i-1] = JsonToObject.run("http://fantasy.premierleague.com/web/api/elements/"+i+"/");
+				players[i-1].setTotal_Points("0");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

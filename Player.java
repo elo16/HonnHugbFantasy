@@ -24,6 +24,7 @@ public class Player {
 	private String red_cards;
 	private String saves;
 	private String type_name;
+	private String total_points;
 	
 	public Player(){
 		this.first_name = null;
@@ -42,6 +43,7 @@ public class Player {
 		this.red_cards = null;
 		this.saves = null;
 		this.type_name = null;
+		this.total_points = null;
 
 	}
 	
@@ -49,7 +51,7 @@ public class Player {
 			String[][] season_history,String minutes, String goals_scored,
 			String assists, String clean_sheets,String goals_conceded, 
 			String own_goals, String penalties_saved,String penalties_missed,
-			String yellow_cards, String red_cards, String saves, String type_name)
+			String yellow_cards, String red_cards, String saves, String type_name, String total_points)
 	{
 		this.first_name = first_name;
 		this.second_name = second_name;
@@ -66,7 +68,9 @@ public class Player {
 		this.yellow_cards = yellow_cards;
 		this.red_cards = red_cards;
 		this.saves = saves;
-		this.type_name = type_name;
+		this.type_name = type_name; //Postition
+		this.total_points = total_points;
+		
 	}
 	
 	public void setFirst_name(String first_name){ this.first_name = first_name; }
@@ -85,6 +89,7 @@ public class Player {
 	public void setRed_card(String red_cards){ this.red_cards = red_cards; }
 	public void setSaves(String saves){ this.saves = saves; }
 	public void setType_name(String type_name){ this.type_name = type_name; }
+	public void setTotal_Points(String total_points){ this.total_points = total_points; }
 	
 	public String getFirst_name(){ return this.first_name; }
 	public String getSecond_name(){ return this.second_name; }
@@ -102,6 +107,7 @@ public class Player {
 	public String getRed_cards(){ return this.red_cards; }
 	public String getSaves(){ return this.saves; }
 	public String getType_name(){ return this.type_name; }
+	public String getTotal_Points(){ return this.total_points; }
 	
 }
 
