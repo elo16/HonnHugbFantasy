@@ -23,13 +23,13 @@ public class Player {
 	private String yellow_cards;
 	private String red_cards;
 	private String saves;
-	private Double[] odds;
+	private String type_name;
 	
 	public Player(){
 		this.first_name = null;
 		this.second_name = null;
 		this.team_name = null;
-		this.season_history = null;
+		this.season_history = new String[1][12];
 		this.minutes = null;
 		this.goals_scored = null;
 		this.assists = null;
@@ -41,16 +41,15 @@ public class Player {
 		this.yellow_cards = null;
 		this.red_cards = null;
 		this.saves = null;
-		this.odds = null;
-		generateOdds(); //veit ekki alveg hvort að þetta sé löglegt :S
-						//ef ekki þá köllum við bara á þetta sem player.generateodds(); inní game
+		this.type_name = null;
+
 	}
 	
 	public Player(String first_name, String second_name, String team_name, 
 			String[][] season_history,String minutes, String goals_scored,
 			String assists, String clean_sheets,String goals_conceded, 
 			String own_goals, String penalties_saved,String penalties_missed,
-			String yellow_cards, String red_cards, String saves, Double[] odds)
+			String yellow_cards, String red_cards, String saves, String type_name)
 	{
 		this.first_name = first_name;
 		this.second_name = second_name;
@@ -67,7 +66,7 @@ public class Player {
 		this.yellow_cards = yellow_cards;
 		this.red_cards = red_cards;
 		this.saves = saves;
-		this.odds = odds;
+		this.type_name = type_name;
 	}
 	
 	public void setFirst_name(String first_name){ this.first_name = first_name; }
@@ -85,7 +84,7 @@ public class Player {
 	public void setYellow_cards(String yellow_cards){ this.yellow_cards = yellow_cards; }
 	public void setRed_card(String red_cards){ this.red_cards = red_cards; }
 	public void setSaves(String saves){ this.saves = saves; }
-	public void setOdds(Double[] odds){this.odds = odds; }
+	public void setType_name(String type_name){ this.type_name = type_name; }
 	
 	public String getFirst_name(){ return this.first_name; }
 	public String getSecond_name(){ return this.second_name; }
@@ -102,45 +101,7 @@ public class Player {
 	public String getYellow_cards(){ return this.yellow_cards; }
 	public String getRed_cards(){ return this.red_cards; }
 	public String getSaves(){ return this.saves; }
-	public Double[] getOdds(){ return this.odds; }
+	public String getType_name(){ return this.type_name; }
 	
-	
-	public void generateOdds(){
-		String[][] history = getSeason_history(); 
-		Double[] odds = new Double[6];
-		double goals = 0;
-		double minutes = 0;
-		double assists = 0;
-		double cleansheet = 0;
-		double owngoals = 0;
-		double yellowcards = 0;
-		double redcards = 0;
-		
-		for(int i = 0; i > history.length; i++){
-			minutes += Double.parseDouble(history[i][1]);
-			goals += Double.parseDouble(history[i][2]);
-			assists += Double.parseDouble(history[i][3]);
-			cleansheet += Double.parseDouble(history[i][4]);
-			owngoals += Double.parseDouble(history[i][6]);
-			yellowcards += Double.parseDouble(history[i][9]);
-			redcards += Double.parseDouble(history[i][9]);
-		}
-		//deilt með 90 til að reikna líkur á hverjum leik en ekki hverri mínútu
-		double oddsscoring = goals/(minutes/90); 
-		double oddsassisting = assists/(minutes/90);
-		double oddscleansheet = cleansheet/(minutes/90);
-		double oddsowngoals = owngoals/(minutes/90);
-		double oddsyellowcards = yellowcards/(minutes/90);
-		double oddsredcards = redcards/(minutes/90);
-		
-		odds[0] = oddsscoring;
-		odds[1] = oddsassisting;
-		odds[2] = oddscleansheet;
-		odds[3] = oddsowngoals;
-		odds[4] = oddsyellowcards;
-		odds[5] = oddsredcards;
-
-		setOdds(odds);
-	}
 }
 

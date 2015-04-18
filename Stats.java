@@ -27,7 +27,7 @@ public class Stats {
 		totalPoints = 0;
 		player = null;
 	}
-	public Stats (int yCards, int rCards, int goals,int ownGoals, int assists, int cleanSheets, int penaltySaves, int penaltyMisses, int dreamTeam, int appearances, int totalPoints, Player player){
+	public Stats (int goals, int assists, int ownGoals, int yCards, int rCards, int cleanSheets, int penaltySaves, int penaltyMisses, int dreamTeam, int appearances, int totalPoints, Player player){
 		this.yCards = yCards; 
 		this.rCards = rCards;
 		this.goals = goals;

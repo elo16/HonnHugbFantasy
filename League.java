@@ -81,17 +81,17 @@ public class League {
 				break;
 			case 2: teams[i].setTeamName("Liverpool");
 				break;
-			case 3: teams[i].setTeamName("Manchester United");
+			case 3: teams[i].setTeamName("Man Utd");
 				break;
-			case 4: teams[i].setTeamName("Manchester City");
+			case 4: teams[i].setTeamName("Man City");
 				break;
-			case 5: teams[i].setTeamName("Newcastle United");
+			case 5: teams[i].setTeamName("Newcastle");
 				break;
 			case 6: teams[i].setTeamName("Southampton");
 				break;
-			case 7: teams[i].setTeamName("Swansea City");
+			case 7: teams[i].setTeamName("Swansea");
 				break;
-			case 8: teams[i].setTeamName("Tottenham");
+			case 8: teams[i].setTeamName("Spurs");
 				break;
 			case 9: teams[i].setTeamName("West Ham");
 				break;
@@ -100,7 +100,7 @@ public class League {
 		// Sorts the players into the teams
 		for(int i = 0; i < teams.length; i++){
 			String teamName = teams[i].getTeamName();
-			for(int j = 0; j < 500; j++){
+			for(int j = 0; j < players.length; j++){
 				if(teamName.equals(players[j].getTeam_name())){
 					teams[i].addPlayer(players[j]);
 				}
@@ -227,6 +227,10 @@ public class League {
 	public static void main(String[] args){
 		
 		League mainLeague = makeLeag();
+		playRound(mainLeague);
+		
 		System.out.println("fukkin virkar maður!!");
+		
+		
 	}
 }
