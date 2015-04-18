@@ -128,19 +128,23 @@ public class Game {
 		
 		int teamGoals = 0;	
 		
-		for(int i = 0; i < players.length; i++){
+		for(int i = 0; i < players.length; i++){															   
 			Double[] playerOdds = generateOdds(players[i]);
-			//System.out.println(playerOdds[0]);
-			
 			int playerGoals = 0;
 			if(playerOdds[0] >= Math.random()) playerGoals = 1;
-			/*int playerASSists = (int)Math.floor(Math.random()* teamOdds[1]);
-			int playerOwnGoals = (int)Math.floor(Math.random()* teamOdds[3]);
-			int playerYellowCards = (int)Math.floor(Math.random()* teamOdds[4]);
-			int playerRedCards = (int)Math.floor(Math.random()* teamOdds[5]);*/
-			
-			//veit ekki alveg með þetta :S
-			//Stats gameStats = new Stats(playerGoals, playerASSists, playerOwnGoals, playerYellowCards, playerRedCards, 0, 0, 0, 0, 0, 0, players[i] );
+			int playerASSists = 0;										//Hér þyrfti eiginlega frekar eitthvað eins og chooseASSister(Player[] players, i);
+			if(playerOdds[1] >= Math.random()) playerASSists = 1;		//													i svo að ekki sé hægt að leggja uppá sjálfan sig :S
+			int playerOwnGoals = 0;
+			if(playerOdds[3] >= Math.random()) playerOwnGoals = 1;
+			int playerYellowCards = 0;
+			if(playerOdds[4] >= Math.random()) playerYellowCards = 1;
+			int playerRedCards = 0;
+			if(playerOdds[5] >= Math.random()) playerRedCards = 1;
+	
+			/*veit ekki alveg hvert ég er að fara með þetta :S En e-h svona: Hvert lið skilar arrayi af stötsum allra leikmanna
+						||
+						VV
+			Stats gameStats = new Stats(playerGoals, playerASSists, playerOwnGoals, playerYellowCards, playerRedCards, 0, 0, 0, 0, 0, 0, players[i] ); */
 			
 			teamGoals += playerGoals;
 		}
