@@ -31,23 +31,13 @@ public class Simulation {
 			double oddsyellowcards = yellowcards/(minutes/90);
 			double oddsredcards = redcards/(minutes/90);
 			
-			if(stringPosition == "Defender"){
-				position = 1;
-			} else if(stringPosition == "Midfielder"){
-				position = 2;
-			} else if(stringPosition == "Forward"){
-				position = 3;
-			} else {
-				position = 0;
-			}
-			
 			odds[0] = oddsscoring;
 			odds[1] = oddsassisting;
 			odds[2] = oddscleansheet;
 			odds[3] = oddsowngoals;
 			odds[4] = oddsyellowcards;
 			odds[5] = oddsredcards;
-			odds[6] = position;
+			odds[6] = 0.0;
 		}
 		return odds;
 	}
@@ -90,20 +80,29 @@ public class Simulation {
 			
 		return playerStats;
 	}
-	
-/* VINNUSVÆÐI
+	//Vinnusvæði VVV
 	private static Player[] choosePlayers(Player[] allPlayers) {
 		Player[] willPlay = new Player[11];
-		Player goalie = new Player();
+		int[] apMinutes = new int[allPlayers.length];
+		
+		for(int i = 0; i < apMinutes.length; i++){
+			String temp = allPlayers[i].getMinutes();
+			apMinutes[i] = Integer.parseInt(temp); }
+		
+		for(int i = 0; i < willPlay.length; i++){ willPlay[i] = new Player(); }
+		
 		for(int i = 0; i < allPlayers.length; i++){
 			String pos = allPlayers[i].getType_name();
 			if(pos.equals("Goalkeaper")){
-				String minutes = allPlayers[i].getMinutes();
-					Double minutes = Parse.
-					if(minutes > goalie.getMinutes())
+				int goalieMinutes = Integer.parseInt(willPlay[0].getMinutes());
+				if(apMinutes[i] > goalieMinutes){
+					willPlay[0] = allPlayers[i];
+				}
+			}
+			if(pos.equals("Defender")){				
+						
 			}
 		}
-			
 		return willPlay;
-	} */
+	}
 }
