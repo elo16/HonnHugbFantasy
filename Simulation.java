@@ -1,5 +1,21 @@
 
 public class Simulation {
+	Player[] homeT;
+	Player[] awayT;
+	Stats[] homeStats;
+	Stats[] awayStats;
+	
+	public Simulation(){
+		this.homeT = null;
+		this.awayT = null;
+		this.homeStats = null;
+		this.awayStats = null;
+	}
+	
+	public Simulation(Player[] h, Player[] a){
+		this.homeT = h;
+		this.awayT = a;
+	}
 
 	public static Double[] generateOdds(Player player){
 		String[][] history = player.getSeason_history(); 
@@ -42,21 +58,33 @@ public class Simulation {
 		return odds;
 	}
 	
-	public static Stats generatePlayerStats(Player player){
+	public static void chooseAssister(Player player, Player[] team){
+		if(Math.random() >= 0.7){
+			for
+		}
+	}
+	
+	public void generateTeamStats(){
+		for(int i = 0; i < this.homeT.length; i ++){
+			homeStats[i] = generatePlayerStats(this.homeT[i], this.homeT);
+		}
+		for(int i = 0; i < this.awayT.length; i ++){
+			awayStats[i] = generatePlayerStats(awayT[i], this.awayT);
+		}
+	}
+	
+	public static Stats generatePlayerStats(Player player, Player[] team){
 			
 			Double[] playerOdds = generateOdds(player);
 			int playerGoals = 0;
 			if(playerOdds[0] >= Math.random()){
-				playerGoals += 1;
+				playerGoals += 1; chooseAssister(player, team);
 				for(int j = 2; j < 7; j++){
-					if((playerOdds[0]/j) >= Math.random()) playerGoals += 1;
-					else break;
+					if((playerOdds[0]/j) >= Math.random()){
+						playerGoals += 1 ;chooseAssister(player, team);
+					}else break;
 				}
 				System.out.println(player.getFirst_name() + " " + player.getSecond_name() + " " + playerGoals);
-				//chooseAssister(Player[] players); <---- Vantar eitthvað svona og hann á ekki að geta lagt upp á sjálfan sig
-				//  || en þangað til má þetta vera svona 
-				//  VV
-				// ---------
 			}
 			int playerASSists = 0;
 			if(playerOdds[1] >= Math.random()){
