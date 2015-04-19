@@ -13,11 +13,8 @@ public class Simulation {
 	}
 	
 	public Simulation(Player[] h, Player[] a){
-		this.homeT = choosePlayers(h);
-		this.awayT = choosePlayers(a);
-		this.homeStats = new Stats[this.homeT.length];
-		this.awayStats = new Stats[this.awayT.length];
-		generateTeamStats();
+		this.homeT = h;
+		this.awayT = a;
 	}
 	
 	public Stats[] getHomeStats(){
@@ -26,87 +23,55 @@ public class Simulation {
 	public Stats[] getAwayStats(){
 		return this.awayStats;
 	}
-	
+
+
 	public void runSim(){
-		Player[] homeInTeam = choosePlayers(this.homeT);
-		Player[] awayInTeam = choosePlayers(this.awayT);
-	
-
-		Stats[] HomeStats = new Stats[homeInTeam.length];
-		Stats[] AwayStats = new Stats[awayInTeam.length];
-
 		
+		this.homeT = choosePlayers(this.homeT);
+		this.awayT = choosePlayers(this.awayT);
+		this.homeStats = new Stats[this.homeT.length];
+		this.awayStats = new Stats[this.awayT.length];
+		generateTeamStats();
 		
-		int homeGoals = 0;
-		int awayGoals = 0;
-		
-		for(int i = 0; i < HomeStats.length; i ++){
-			homeGoals += HomeStats[i].getGoals();
-		}
-		for(int i = 0; i < AwayStats.length; i ++){
-			awayGoals += AwayStats[i].getGoals();
-		}
-		if(homeGoals == 0){
-			for(int i = 0; i < AwayStats.length; i ++){
-				AwayStats[i].setCleanSheets(1);
-			}
-		}
-		if(homeGoals == 0){
-			for(int i = 0; i < HomeStats.length; i ++){
-				HomeStats[i].setCleanSheets(1);
-			}
-		}
-		if(awayGoals == 0){
-			for(int i = 0; i < awayStats.length; i ++){
-				awayStats[i].setCleanSheets(1);
-			}
-		}
 	}
-		/*
-		System.out.println(this.homeT.getTeamName());
-		System.out.println(homeGoals);
-		System.out.println(this.awayT.getTeamName());
-		System.out.println(awayGoals);
-		System.out.println(" ");*/
 
 	public static Double[] generateOdds(Player player){
 		String[][] history = player.getSeason_history(); 
 		Double[] odds = new Double[7];
-		if(history != null){
 			//String stringPosition = player.getType_name();
-			double goals = 0;
-			double minutes = 0;
-			double assists = 0;
-			double cleansheet = 0;
-			double owngoals = 0;
-			double yellowcards = 0;
-			double redcards = 0;
-			double position = 0;
-			for(int i = 0; i < history.length; i++){
-				minutes += Double.parseDouble(history[i][1]);
-				goals += Double.parseDouble(history[i][2]);
-				assists += Double.parseDouble(history[i][3]);
-				cleansheet += Double.parseDouble(history[i][4]);
-				owngoals += Double.parseDouble(history[i][6]);
-				yellowcards += Double.parseDouble(history[i][9]);
-				redcards += Double.parseDouble(history[i][9]);
-			}
-			//deilt með 90 til að reikna líkur á hverjum leik en ekki hverri mínútu
-			double oddsscoring = goals/(minutes/90); 
-			double oddsassisting = assists/(minutes/90);
-			double oddscleansheet = cleansheet/(minutes/90);
-			double oddsowngoals = owngoals/(minutes/90);
-			double oddsyellowcards = yellowcards/(minutes/90);
-			double oddsredcards = redcards/(minutes/90);
-			
-			odds[0] = oddsscoring;
-			odds[1] = oddsassisting;
-			odds[2] = oddscleansheet;
-			odds[3] = oddsowngoals;
-			odds[4] = oddsyellowcards;
-			odds[5] = oddsredcards;
-			odds[6] = position;
+		double goals = 0;
+		double minutes = 0;
+		double assists = 0;
+		double cleansheet = 0;
+		double owngoals = 0;
+		double yellowcards = 0;
+		double redcards = 0;
+		double position = 0;
+		for(int i = 0; i < history.length; i++){
+			minutes += Double.parseDouble(history[i][1]);
+			goals += Double.parseDouble(history[i][2]);
+			assists += Double.parseDouble(history[i][3]);
+			cleansheet += Double.parseDouble(history[i][4]);
+			owngoals += Double.parseDouble(history[i][6]);
+			yellowcards += Double.parseDouble(history[i][9]);
+			redcards += Double.parseDouble(history[i][9]);
 		}
+		//deilt með 90 til að reikna líkur á hverjum leik en ekki hverri mínútu
+		double oddsscoring = goals/(minutes/90); 
+		double oddsassisting = assists/(minutes/90);
+		double oddscleansheet = cleansheet/(minutes/90);
+		double oddsowngoals = owngoals/(minutes/90);
+		double oddsyellowcards = yellowcards/(minutes/90);
+		double oddsredcards = redcards/(minutes/90);
+		
+		odds[0] = oddsscoring;
+		odds[1] = oddsassisting;
+		odds[2] = oddscleansheet;
+		odds[3] = oddsowngoals;
+		odds[4] = oddsyellowcards;
+		odds[5] = oddsredcards;
+		odds[6] = position;
+			
 		return odds;
 	}
 	
@@ -134,8 +99,8 @@ public class Simulation {
 			}
 		}else {return choise;}
 		return choise;
-	}	
-	
+	}
+
 	public void generateTeamStats(){
 		for(int i = 0; i < this.homeT.length; i ++){
 			this.homeStats[i] = generatePlayerStats(this.homeT[i], this.homeT);
@@ -159,7 +124,7 @@ public class Simulation {
 						assister = chooseAssister(player, team);
 					}else break;
 				}
-				System.out.println(player.getFirst_name() + " " + player.getSecond_name() + " " + playerGoals);
+				System.out.println("Goal:" + " " + player.getFirst_name() + " " + player.getSecond_name() + " " + playerGoals);
 				if(assister.getFirst_name() != null){System.out.println("Assister: " + assister.getFirst_name());}
 			}
 			/*
@@ -170,8 +135,9 @@ public class Simulation {
 					if((playerOdds[0]*0.25) >= Math.random()) playerASSists += 1;
 					else break;
 				}
-			}*/
-				// ---------
+			}
+			*/
+			
 			int playerOwnGoals = 0;
 			if(playerOdds[3] >= Math.random()) playerOwnGoals = 1;	
 			int playerYellowCards = 0;										
@@ -185,7 +151,7 @@ public class Simulation {
 			
 		return playerStats;
 	}
-	//Vinnusvæði VVV
+
 	public static Player[] choosePlayers(Player[] allPlayers) {
 		Player[] willPlay = new Player[11];
 		int[] apMinutes = new int[allPlayers.length];
@@ -193,8 +159,6 @@ public class Simulation {
 		for(int i = 0; i < apMinutes.length; i++){
 			String temp = allPlayers[i].getMinutes();
 			apMinutes[i] = Integer.parseInt(temp); }
-		
-		//for(int i = 0; i < willPlay.length; i++){ willPlay[i] = new Player(); }
 		
 		int defCounter = 0;
 		int midCounter = 0;
