@@ -76,10 +76,9 @@ public class Game {
 	}
 
 	
-	public void playGame(){
-
+	public void playGame(){		
 		Simulation gameSim = new Simulation(this.homeTeam.getPlayers(), this.awayTeam.getPlayers());
-		
+
 		gameSim.runSim();
 		
 		this.HomeStats = gameSim.getHomeStats();

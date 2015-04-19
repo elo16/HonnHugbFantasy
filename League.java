@@ -149,55 +149,6 @@ public class League {
 		return rounds;
 	}
 	
-	/*
-	*
-	*
-	public static Game[] makeFixtures(Team[] teams){
-		Game[] games = new Game[90];
-		int gameCount = 0;
-		for(int i = 0; i < 9; i++){
-			for(int j = i + 1;j < 10; j++){
-				games[gameCount] = new Game();
-				games[gameCount].setHomeTeam(teams[i]);
-				games[gameCount].setAwayTeam(teams[j]);
-				System.out.println(i + " " + j);
-				games[gameCount+45] = new Game();
-				games[gameCount+45].setHomeTeam(teams[j]);
-				games[gameCount+45].setAwayTeam(teams[i]);
-				
-				gameCount += 1;
-			}
-		}
-		
-		//shaker(games);
-		return games;
-	}
-	
-		
-		
-	public static void shaker(Game[]games){
-		int n = 0;
-		while(n>=90){
-			int a = (int) Math.floor(Math.random()*45);
-			int b = (int) Math.floor(Math.random()*45);
-			
-			Game t = new Game();
-			t = games[a];
-			games[a] = games[b];
-			games[b] = t;
-			
-			a = (int) Math.floor(Math.random()*45 +45);
-			b = (int) Math.floor(Math.random()*45 +45);
-			
-			t = games[a];
-			games[a] = games[b];
-			games[b] = t;
-			n++;
-		}
-	}
-	*
-	*
-	*/
 	
 	public static League makeLeag(){
 		League leag = new League();
@@ -212,15 +163,6 @@ public class League {
 	public static void playRound(League leag){
 		int t = leag.getPlayedRoundsCount();
 		Round[] rounds = leag.getRounds();
-		/*if(t == 0){
-			for(int i = t; i<t+5; i++){
-				games[i].playGame();
-			}
-		}else{
-			for(int i = t+1; i<t+5; i++){
-				games[i].playGame();
-			}
-		}*/
 		rounds[t].playRound();
 		leag.setPlayedRoundsCount(t+1);
 	}

@@ -4,17 +4,27 @@ public class Simulation {
 	Player[] awayT;
 	Stats[] homeStats;
 	Stats[] awayStats;
+	Double[][] homeOdds;
+	Double[][] awayOdds;
 	
 	public Simulation(){
 		this.homeT = null;
 		this.awayT = null;
 		this.homeStats = null;
 		this.awayStats = null;
+		this.homeOdds = null;
+		this.awayOdds = null;
 	}
 	
 	public Simulation(Player[] h, Player[] a){
-		this.homeT = h;
-		this.awayT = a;
+
+		this.homeT = choosePlayers(h);
+		this.awayT = choosePlayers(a);
+		this.homeStats = new Stats[this.homeT.length];
+		this.awayStats = new Stats[this.awayT.length];
+		this.homeOdds = new Double[homeT.length][7];
+		this.awayOdds = new Double[awayT.length][7];
+
 	}
 	
 	public Stats[] getHomeStats(){
@@ -23,18 +33,78 @@ public class Simulation {
 	public Stats[] getAwayStats(){
 		return this.awayStats;
 	}
-
-
+	
+	public void setHomeOdds(Double[][] o){
+		this.homeOdds = o;
+	}
+	
+	public void setAwayOdds(Double[][] o){
+		this.awayOdds = o;
+	}
+	
+	public Double[][] getHomeOdds(){
+		return this.homeOdds;
+	}
+	public Double[][] getAwayOdds(){
+		return this.awayOdds;
+	}
+	
 	public void runSim(){
+		/*
+		Player[] homeInTeam = choosePlayers(this.homeT);
+		Player[] awayInTeam = choosePlayers(this.awayT);
+		Stats[] HomeStats = new Stats[homeInTeam.length];
+		Stats[] AwayStats = new Stats[awayInTeam.length];
+		*/
 		
-		this.homeT = choosePlayers(this.homeT);
-		this.awayT = choosePlayers(this.awayT);
+		generateTeamOdds();
+		generateTeamStats();
 		this.homeStats = new Stats[this.homeT.length];
 		this.awayStats = new Stats[this.awayT.length];
 		generateTeamStats();
 		
+		int homeGoals = 0;
+		int awayGoals = 0;
+		
+		for(int i = 0; i < this.homeStats.length; i ++){
+			homeGoals += this.homeStats[i].getGoals();
+		}
+		for(int i = 0; i < this.awayStats.length; i ++){
+			awayGoals += this.awayStats[i].getGoals();
+		}
+		if(homeGoals == 0){
+			for(int i = 0; i < this.awayStats.length; i ++){
+				this.awayStats[i].setCleanSheets(1);
+			}
+		}
+		if(homeGoals == 0){
+			for(int i = 0; i < this.homeStats.length; i ++){
+				this.homeStats[i].setCleanSheets(1);
+			}
+		}
+		if(awayGoals == 0){
+			for(int i = 0; i < awayStats.length; i ++){
+				awayStats[i].setCleanSheets(1);
+			}
+		}
 	}
-
+	public void generateTeamOdds(){
+		Double[][] home = new Double[this.homeT.length][7];
+		Double[][] away = new Double[this.awayT.length][7];
+		for(int i = 0; i <this.homeT.length; i++){
+			Double[] odds = generateOdds(this.homeT[i]);
+			for(int j = 0; j < 7; j++){
+				home[i][j] = odds[j];
+				}
+			}
+		for(int i = 0; i <this.awayT.length; i++){
+			Double[] odds = generateOdds(this.awayT[i]);
+			for(int j = 0; j < 7; j++){
+				away[i][j] = odds[j];
+				}
+			}
+		}
+	
 	public static Double[] generateOdds(Player player){
 		String[][] history = player.getSeason_history(); 
 		Double[] odds = new Double[7];
@@ -127,6 +197,7 @@ public class Simulation {
 				System.out.println("Goal:" + " " + player.getFirst_name() + " " + player.getSecond_name() + " " + playerGoals);
 				if(assister.getFirst_name() != null){System.out.println("Assister: " + assister.getFirst_name());}
 			}
+			
 			/*
 			int playerASSists = 0;
 			if(playerOdds[1] >= Math.random()){
