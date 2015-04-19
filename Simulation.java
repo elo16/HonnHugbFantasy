@@ -49,6 +49,7 @@ public class Simulation {
 		return this.awayOdds;
 	}
 	
+	
 	public void runSim(){
 		/*
 		Player[] homeInTeam = choosePlayers(this.homeT);
@@ -59,34 +60,51 @@ public class Simulation {
 		
 		generateTeamOdds();
 		generateTeamStats();
-		this.homeStats = new Stats[this.homeT.length];
-		this.awayStats = new Stats[this.awayT.length];
-		generateTeamStats();
 		
-		int homeGoals = 0;
-		int awayGoals = 0;
+		int homeGoals = calcGoals(this.homeStats, this.homeT);
+		int awayGoals = calcGoals(this.awayStats, this.awayT);
 		
-		for(int i = 0; i < this.homeStats.length; i ++){
-			homeGoals += this.homeStats[i].getGoals();
-		}
-		for(int i = 0; i < this.awayStats.length; i ++){
-			awayGoals += this.awayStats[i].getGoals();
-		}
 		if(homeGoals == 0){
 			for(int i = 0; i < this.awayStats.length; i ++){
 				this.awayStats[i].setCleanSheets(1);
 			}
 		}
 		if(homeGoals == 0){
-			for(int i = 0; i < this.homeStats.length; i ++){
-				this.homeStats[i].setCleanSheets(1);
-			}
+			setCleanSheets(this.awayStats);
+		}
+		if(awayGoals == 0){
+			setCleanSheets(this.homeStats);
 		}
 		if(awayGoals == 0){
 			for(int i = 0; i < awayStats.length; i ++){
 				awayStats[i].setCleanSheets(1);
 			}
 		}
+		for(int i = 0; i < homeGoals; i++){
+			
+		}
+	}
+	
+	public void setCleanSheets(Stats[] team){
+		for(int i = 0; i < team.length; i++){
+			team[i].setCleanSheets(1);
+		}
+	}
+	
+	public int calcGoals(Stats[] stats, Player[] players){
+		int teamGoals = 0;
+		for(int i = 0; i < stats.length; i++){
+			if(stats[i].getGoals() > 0){
+				teamGoals += stats[i].getGoals();
+				for(int j = 0; j < stats[i].getGoals(); j++){
+					if(Math.random() < 0.73){
+						int ASSister = chooseAssister(i, players);
+						stats[ASSister].setAssists(stats[i].getAssists() + 1);
+					}
+				}
+			}
+		}
+		return teamGoals;
 	}
 	
 	public Double[] getOdds(int i, boolean b){
@@ -104,18 +122,18 @@ public class Simulation {
 	}
 	
 	public void generateTeamOdds(){
-		Double[][] home = new Double[this.homeT.length][7];
-		Double[][] away = new Double[this.awayT.length][7];
+		this.homeOdds = new Double[this.homeT.length][7];
+		this.awayOdds = new Double[this.awayT.length][7];
 		for(int i = 0; i <this.homeT.length; i++){
 			Double[] odds = generateOdds(this.homeT[i]);
 			for(int j = 0; j < 7; j++){
-				home[i][j] = odds[j];
+				this.homeOdds[i][j] = odds[j];
 				}
 			}
 		for(int i = 0; i <this.awayT.length; i++){
 			Double[] odds = generateOdds(this.awayT[i]);
 			for(int j = 0; j < 7; j++){
-				away[i][j] = odds[j];
+				this.awayOdds[i][j] = odds[j];
 				}
 			}
 		}
@@ -160,31 +178,32 @@ public class Simulation {
 		return odds;
 	}
 	
-	public static Player chooseAssister(Player player, Player[] team){
-		Player choise = new Player();
-		if(Math.random() <= 1.7){
-			double[] assistOdds = new double[team.length];
-			for(int i = 0; i < team.length; i++){
-				if(!player.getFirst_name().equals(team[i].getFirst_name())){
-					Double tempOdds[] = generateOdds(team[i]);
-					assistOdds[i] = tempOdds[1];
-				}else{assistOdds[i] = -1;}
-			}
-			double tryAssist = 1.0;
-			while(tryAssist > 0){
-				for(int i = 0; i < assistOdds.length;i++){
-					if(assistOdds[i] > tryAssist && assistOdds[i] > 0){
-						if(Math.random() <= 0.25){
-							choise = team[i];
-						}
+	public int chooseAssister(int index, Player[] team){
+		int choise = -1;
+		Player  player = team[index];
+		double[] assistOdds = new double[team.length];
+		for(int i = 0; i < team.length; i++){
+			if(!player.getFirst_name().equals(team[i].getFirst_name())){
+				Double tempOdds[] = generateOdds(team[i]);
+				assistOdds[i] = tempOdds[1];
+			}else{assistOdds[i] = -1;}
+		}
+		double tryAssist = 1.0;
+		while(tryAssist > 0){
+			for(int i = 0; i < assistOdds.length;i++){
+				if(assistOdds[i] < tryAssist && assistOdds[i] > 0){
+					if(Math.random() <= 0.25){
+						choise = i;
+						break;
 					}
 				}
-				if(tryAssist - 0.05 <= 0){tryAssist = 0.95;}
-				else{tryAssist = tryAssist - 0.05;}
 			}
-		}else {return choise;}
-		return choise;
-	}
+			if(choise >= 0 ){ break;}
+			if(tryAssist - 0.15 <= 0){tryAssist = 0.95;}
+			else{tryAssist = tryAssist - 0.05;}
+		}
+	return choise;
+}
 
 	public void generateTeamStats(){
 		for(int i = 0; i < this.homeT.length; i ++){
@@ -198,16 +217,28 @@ public class Simulation {
 	public Stats generatePlayerStats(int i, boolean b){
 			Double[] playerOdds = getOdds(i, b);
 			Stats playerStats = new Stats();
-			playerStats.setPlayer(this.homeT[i]);
 			int playerGoals = 0;
-			if(playerOdds[0] >= Math.random()){
-				playerGoals += 1; 
-				for(int j = 2; j < 7; j++){
-					if((playerOdds[0]/j) >= Math.random()){
-						playerGoals += 1 ;
-					}else break;
+			if(b){
+				playerStats.setPlayer(this.homeT[i]);
+				if(playerOdds[0] >= Math.random()){
+					playerGoals += 1; 
+					for(int j = 2; j < 7; j++){
+						if((playerOdds[0]/j) >= Math.random()){
+							playerGoals += 1 ;
+						}else break;
+					}
 				}
-			}
+			}else{
+				playerStats.setPlayer(this.awayT[i]);
+				if(playerOdds[0] >= Math.random()){
+					playerGoals += 1; 
+					for(int j = 2; j < 7; j++){
+						if((playerOdds[0]/j) >= Math.random()){
+							playerGoals += 1 ;
+						}else break;
+					}
+				}
+			}	
 			playerStats.setGoals(playerGoals);
 
 			int playerOwnGoals = 0;
