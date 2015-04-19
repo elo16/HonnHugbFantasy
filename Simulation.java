@@ -13,8 +13,18 @@ public class Simulation {
 	}
 	
 	public Simulation(Player[] h, Player[] a){
-		this.homeT = h;
-		this.awayT = a;
+		this.homeT = choosePlayers(h);
+		this.awayT = choosePlayers(a);
+		this.homeStats = new Stats[this.homeT.length];
+		this.awayStats = new Stats[this.awayT.length];
+		generateTeamStats();
+	}
+	
+	public Stats[] getHomeStats(){
+		return this.homeStats;
+	}
+	public Stats[] getAwayStats(){
+		return this.awayStats;
 	}
 
 	public static Double[] generateOdds(Player player){
@@ -60,19 +70,19 @@ public class Simulation {
 	
 	public static void chooseAssister(Player player, Player[] team){
 		if(Math.random() >= 0.7){
-			for
+			
 		}
-	}
+	}	
 	
 	public void generateTeamStats(){
 		for(int i = 0; i < this.homeT.length; i ++){
-			homeStats[i] = generatePlayerStats(this.homeT[i], this.homeT);
+			this.homeStats[i] = generatePlayerStats(this.homeT[i], this.homeT);
 		}
 		for(int i = 0; i < this.awayT.length; i ++){
-			awayStats[i] = generatePlayerStats(awayT[i], this.awayT);
+			this.awayStats[i] = generatePlayerStats(this.awayT[i], this.awayT);
 		}
 	}
-	
+
 	public static Stats generatePlayerStats(Player player, Player[] team){
 			
 			Double[] playerOdds = generateOdds(player);
