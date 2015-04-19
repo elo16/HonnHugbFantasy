@@ -62,33 +62,46 @@ public class Game {
 	public Player[] getAssisters(){
 		return this.assisters;
 	}
-	public int calcTeamGoals(Stats[] stats){
-		int teamGoals = 0;
-		for(int i = 0; i < stats.length; i ++){
-			teamGoals += stats[i].getGoals();
-		}
-		return teamGoals;
-	}
-	public void setCleanSheets(Stats[] stats){
-			for(int i = 0; i < stats.length; i ++){
-				stats[i].setCleanSheets(1);
-			}
-	}
 
-	
 	public void playGame(){		
 		Simulation gameSim = new Simulation(this.homeTeam.getPlayers(), this.awayTeam.getPlayers());
 
-		gameSim.runSim();
+<<<<<<< .mine
+		//Player[] homePl = this.homeTeam.getPlayers();
+		//Player[] awayPl = this.awayTeam.getPlayers();
 		
+		//Player[] homeInTeam = Simulation.choosePlayers(this.homeTeam.getPlayers());
+		//Player[] awayInTeam = Simulation.choosePlayers(this.awayTeam.getPlayers());
+		
+		//this.HomeStats = new Stats[homeInTeam.length];
+		//this.AwayStats = new Stats[awayInTeam.length];
+		
+		Simulation gameSim = new Simulation(this.homeTeam.getPlayers(), this.awayTeam.getPlayers());
+		
+=======
+>>>>>>> .r45
 		this.HomeStats = gameSim.getHomeStats();
 		this.AwayStats = gameSim.getAwayStats();
 		
-		int homeGoals = calcTeamGoals(this.HomeStats);
-		int awayGoals = calcTeamGoals(this.AwayStats);
+		int homeGoals = 0;
+		int awayGoals = 0;
 		
-		if(homeGoals == 0) setCleanSheets(AwayStats);
-		if(awayGoals == 0) setCleanSheets(HomeStats);
+		for(int i = 0; i < HomeStats.length; i ++){
+			homeGoals += HomeStats[i].getGoals();
+		}
+		for(int i = 0; i < AwayStats.length; i ++){
+			awayGoals += AwayStats[i].getGoals();
+		}
+		if(homeGoals == 0){
+			for(int i = 0; i < AwayStats.length; i ++){
+				AwayStats[i].setCleanSheets(1);
+			}
+		}
+		if(awayGoals == 0){
+			for(int i = 0; i < HomeStats.length; i ++){
+				HomeStats[i].setCleanSheets(1);
+			}
+		}
 		
 		set_htScore(homeGoals);
 		set_atScore(awayGoals);

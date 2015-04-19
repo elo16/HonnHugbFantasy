@@ -17,6 +17,13 @@ public class Simulation {
 	}
 	
 	public Simulation(Player[] h, Player[] a){
+<<<<<<< .mine
+		this.homeT = choosePlayers(h);
+		this.awayT = choosePlayers(a);
+		this.homeStats = new Stats[this.homeT.length];
+		this.awayStats = new Stats[this.awayT.length];
+		generateTeamStats();
+=======
 
 		this.homeT = choosePlayers(h);
 		this.awayT = choosePlayers(a);
@@ -25,6 +32,7 @@ public class Simulation {
 		this.homeOdds = new Double[homeT.length][7];
 		this.awayOdds = new Double[awayT.length][7];
 
+>>>>>>> .r45
 	}
 	
 	public Stats[] getHomeStats(){
@@ -33,6 +41,9 @@ public class Simulation {
 	public Stats[] getAwayStats(){
 		return this.awayStats;
 	}
+<<<<<<< .mine
+
+=======
 	
 	public void setHomeOdds(Double[][] o){
 		this.homeOdds = o;
@@ -138,10 +149,46 @@ public class Simulation {
 			}
 		}
 	
+>>>>>>> .r45
 	public static Double[] generateOdds(Player player){
 		String[][] history = player.getSeason_history(); 
 		Double[] odds = new Double[7];
+		if(history != null){
 			//String stringPosition = player.getType_name();
+<<<<<<< .mine
+			double goals = 0;
+			double minutes = 0;
+			double assists = 0;
+			double cleansheet = 0;
+			double owngoals = 0;
+			double yellowcards = 0;
+			double redcards = 0;
+			double position = 0;
+			for(int i = 0; i < history.length; i++){
+				minutes += Double.parseDouble(history[i][1]);
+				goals += Double.parseDouble(history[i][2]);
+				assists += Double.parseDouble(history[i][3]);
+				cleansheet += Double.parseDouble(history[i][4]);
+				owngoals += Double.parseDouble(history[i][6]);
+				yellowcards += Double.parseDouble(history[i][9]);
+				redcards += Double.parseDouble(history[i][9]);
+			}
+			//deilt með 90 til að reikna líkur á hverjum leik en ekki hverri mínútu
+			double oddsscoring = goals/(minutes/90); 
+			double oddsassisting = assists/(minutes/90);
+			double oddscleansheet = cleansheet/(minutes/90);
+			double oddsowngoals = owngoals/(minutes/90);
+			double oddsyellowcards = yellowcards/(minutes/90);
+			double oddsredcards = redcards/(minutes/90);
+			
+			odds[0] = oddsscoring;
+			odds[1] = oddsassisting;
+			odds[2] = oddscleansheet;
+			odds[3] = oddsowngoals;
+			odds[4] = oddsyellowcards;
+			odds[5] = oddsredcards;
+			odds[6] = position;
+=======
 		double goals = 0;
 		double minutes = 0;
 		double assists = 0;
@@ -158,26 +205,19 @@ public class Simulation {
 			owngoals += Double.parseDouble(history[i][6]);
 			yellowcards += Double.parseDouble(history[i][7]);
 			redcards += Double.parseDouble(history[i][9]);
+>>>>>>> .r45
 		}
-		//deilt með 90 til að reikna líkur á hverjum leik en ekki hverri mínútu
-		double oddsscoring = goals/(minutes/90); 
-		double oddsassisting = assists/(minutes/90);
-		double oddscleansheet = cleansheet/(minutes/90);
-		double oddsowngoals = owngoals/(minutes/90);
-		double oddsyellowcards = yellowcards/(minutes/90);
-		double oddsredcards = redcards/(minutes/90);
-		
-		odds[0] = oddsscoring;
-		odds[1] = oddsassisting;
-		odds[2] = oddscleansheet;
-		odds[3] = oddsowngoals;
-		odds[4] = oddsyellowcards;
-		odds[5] = oddsredcards;
-		odds[6] = position;
-			
 		return odds;
 	}
 	
+<<<<<<< .mine
+	public static void chooseAssister(Player player, Player[] team){
+		if(Math.random() >= 0.7){
+			
+		}
+	}	
+	
+=======
 	public int chooseAssister(int index, Player[] team){
 		int choise = -1;
 		Player  player = team[index];
@@ -205,6 +245,7 @@ public class Simulation {
 	return choise;
 }
 
+>>>>>>> .r45
 	public void generateTeamStats(){
 		for(int i = 0; i < this.homeT.length; i ++){
 			this.homeStats[i] = generatePlayerStats(i, true);
@@ -218,6 +259,14 @@ public class Simulation {
 			Double[] playerOdds = getOdds(i, b);
 			Stats playerStats = new Stats();
 			int playerGoals = 0;
+<<<<<<< .mine
+			if(playerOdds[0] >= Math.random()){
+				playerGoals += 1; chooseAssister(player, team);
+				for(int j = 2; j < 7; j++){
+					if((playerOdds[0]/j) >= Math.random()){
+						playerGoals += 1 ;chooseAssister(player, team);
+					}else break;
+=======
 			if(b){
 				playerStats.setPlayer(this.homeT[i]);
 				if(playerOdds[0] >= Math.random()){
@@ -227,7 +276,18 @@ public class Simulation {
 							playerGoals += 1 ;
 						}else break;
 					}
+>>>>>>> .r45
 				}
+<<<<<<< .mine
+				System.out.println(player.getFirst_name() + " " + player.getSecond_name() + " " + playerGoals);
+			}
+			int playerASSists = 0;
+			if(playerOdds[1] >= Math.random()){
+				playerASSists += 1;
+				for(int j = 0; j < 4; j++){
+					if((playerOdds[0]*0.25) >= Math.random()) playerASSists += 1;
+					else break;
+=======
 			}else{
 				playerStats.setPlayer(this.awayT[i]);
 				if(playerOdds[0] >= Math.random()){
@@ -237,10 +297,16 @@ public class Simulation {
 							playerGoals += 1 ;
 						}else break;
 					}
+>>>>>>> .r45
 				}
+<<<<<<< .mine
+			}
+				// ---------
+=======
 			}	
 			playerStats.setGoals(playerGoals);
 
+>>>>>>> .r45
 			int playerOwnGoals = 0;
 			if(playerOdds[3] >= Math.random()) playerOwnGoals = 1;	
 			playerStats.setOwnGoals(playerOwnGoals);
@@ -251,9 +317,15 @@ public class Simulation {
 			playerStats.setrCards(playerRedCards);
 			playerStats.setyCards(playerYellowCards);
 			
+<<<<<<< .mine
+			Stats playerStats = new Stats(playerGoals, playerASSists, playerOwnGoals, playerYellowCards,
+			playerRedCards, 0, 0, 0, 0, 0, 0, 0, player);
+			
+=======
+>>>>>>> .r45
 		return playerStats;
 	}
-
+	//Vinnusvæði VVV
 	public static Player[] choosePlayers(Player[] allPlayers) {
 		Player[] willPlay = new Player[11];
 		int[] apMinutes = new int[allPlayers.length];
@@ -261,6 +333,8 @@ public class Simulation {
 		for(int i = 0; i < apMinutes.length; i++){
 			String temp = allPlayers[i].getMinutes();
 			apMinutes[i] = Integer.parseInt(temp); }
+		
+		//for(int i = 0; i < willPlay.length; i++){ willPlay[i] = new Player(); }
 		
 		int defCounter = 0;
 		int midCounter = 0;
