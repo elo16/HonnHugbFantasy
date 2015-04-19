@@ -101,17 +101,15 @@ public class Game {
 		Player[] homePl = this.homeTeam.getPlayers();
 		Player[] awayPl = this.awayTeam.getPlayers();
 		
-		//Player[] homeInTeam = choosePlayers(homePl); //vinnusvæði
-		//Player[] awayInTeam = choosePlayers(awayPl); //vinnusvæði
+		Player[] homeInTeam = Simulation.choosePlayers(homePl);
+		Player[] awayInTeam = Simulation.choosePlayers(awayPl);
 		
-		this.HomeStats = new Stats[homePl.length];
-		this.AwayStats = new Stats[awayPl.length];
+		this.HomeStats = new Stats[homeInTeam.length];
+		this.AwayStats = new Stats[awayInTeam.length];
 		
-		for(int i = 0; i < homePl.length; i ++){
-			this.HomeStats[i] = Simulation.generatePlayerStats(homePl[i]);
-		}
-		for(int i = 0; i < awayPl.length; i ++){
-			this.AwayStats[i] = Simulation.generatePlayerStats(awayPl[i]);
+		for(int i = 0; i < 11; i ++){
+			this.HomeStats[i] = Simulation.generatePlayerStats(homeInTeam[i]);
+			this.AwayStats[i] = Simulation.generatePlayerStats(awayInTeam[i]);
 		}
 		
 		int homeGoals = 0;
@@ -143,5 +141,4 @@ public class Game {
 		System.out.println(awayGoals);
 		System.out.println(" ");
 	}
-
 }
