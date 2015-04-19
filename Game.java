@@ -63,7 +63,9 @@ public class Game {
 		return this.assisters;
 	}
 
+	
 	public void playGame(){
+
 
 		//Player[] homePl = this.homeTeam.getPlayers();
 		//Player[] awayPl = this.awayTeam.getPlayers();
@@ -74,8 +76,11 @@ public class Game {
 		//this.HomeStats = new Stats[homeInTeam.length];
 		//this.AwayStats = new Stats[awayInTeam.length];
 		
+
 		Simulation gameSim = new Simulation(this.homeTeam.getPlayers(), this.awayTeam.getPlayers());
+		gameSim.runSim();
 		
+
 		this.HomeStats = gameSim.getHomeStats();
 		this.AwayStats = gameSim.getAwayStats();
 		
