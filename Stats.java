@@ -125,4 +125,7 @@ public class Stats {
 	public void setPlayer(Player p){
 		this.player = p;
 	}
+	public Player getPlayer(){
+		return this.player;
+	}
 }

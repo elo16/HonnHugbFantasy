@@ -10,6 +10,7 @@ public class Game {
 	private Stats[] HomeStats;
 	private Stats[] AwayStats;
 
+	
 	public Game(){
 		homeTeam = null;
 		awayTeam = null;
@@ -64,24 +65,9 @@ public class Game {
 	}
 
 	public void playGame(){		
-		Simulation gameSim = new Simulation(this.homeTeam.getPlayers(), this.awayTeam.getPlayers());
+		Simulation sim = new Simulation(this.homeTeam.getPlayers(), this.awayTeam.getPlayers());
 
-<<<<<<< .mine
-		//Player[] homePl = this.homeTeam.getPlayers();
-		//Player[] awayPl = this.awayTeam.getPlayers();
-		
-		//Player[] homeInTeam = Simulation.choosePlayers(this.homeTeam.getPlayers());
-		//Player[] awayInTeam = Simulation.choosePlayers(this.awayTeam.getPlayers());
-		
-		//this.HomeStats = new Stats[homeInTeam.length];
-		//this.AwayStats = new Stats[awayInTeam.length];
-		
-		Simulation gameSim = new Simulation(this.homeTeam.getPlayers(), this.awayTeam.getPlayers());
-		
-=======
->>>>>>> .r45
-		this.HomeStats = gameSim.getHomeStats();
-		this.AwayStats = gameSim.getAwayStats();
+		sim.runSim();
 		
 		int homeGoals = 0;
 		int awayGoals = 0;
@@ -106,10 +92,10 @@ public class Game {
 		set_htScore(homeGoals);
 		set_atScore(awayGoals);
 		
-		System.out.println(this.homeTeam.getTeamName());
-		System.out.println(homeGoals);
-		System.out.println(this.awayTeam.getTeamName());
-		System.out.println(awayGoals);
-		System.out.println(" ");
+		System.out.println(this.homeTeam.getTeamName() + " " + homeGoals + " - " + awayGoals +" " + this.awayTeam.getTeamName());
+		String[] printer = sim.getGoals(homeGoals +awayGoals);
+		for(int i = 0; i < printer.length; i++){
+			System.out.println(printer[i]);
+		}
 	}
 }
