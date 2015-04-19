@@ -1,6 +1,5 @@
 import java.io.IOException;
 
-
 public class League {
 	public Team[] Teams;
 	public Game[] Fixtures;

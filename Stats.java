@@ -122,4 +122,7 @@ public class Stats {
 		Points points = new Points(yCards, rCards, goals, ownGoals, assists, cleanSheets, penaltySaves, penaltyMisses, dreamTeam, appearances, totalPoints, player);
 		this.totalPoints = points.getPoints();
 	}
+	public void setPlayer(Player p){
+		this.player = p;
+	}
 }

@@ -88,6 +88,21 @@ public class Simulation {
 			}
 		}
 	}
+	
+	public Double[] getOdds(int i, boolean b){
+		Double[] odds = new Double[7];
+		if(b == true){
+			for(int j = 0; j < 7; j++){
+				odds[j] = homeOdds[i][j];
+			}
+		}else{
+			for(int j = 0; j < 7; j++){
+				odds[j] = awayOdds[i][j];
+			}
+		}
+		return odds;
+	}
+	
 	public void generateTeamOdds(){
 		Double[][] home = new Double[this.homeT.length][7];
 		Double[][] away = new Double[this.awayT.length][7];
@@ -123,7 +138,7 @@ public class Simulation {
 			assists += Double.parseDouble(history[i][3]);
 			cleansheet += Double.parseDouble(history[i][4]);
 			owngoals += Double.parseDouble(history[i][6]);
-			yellowcards += Double.parseDouble(history[i][9]);
+			yellowcards += Double.parseDouble(history[i][7]);
 			redcards += Double.parseDouble(history[i][9]);
 		}
 		//deilt með 90 til að reikna líkur á hverjum leik en ekki hverri mínútu
@@ -173,52 +188,37 @@ public class Simulation {
 
 	public void generateTeamStats(){
 		for(int i = 0; i < this.homeT.length; i ++){
-			this.homeStats[i] = generatePlayerStats(this.homeT[i], this.homeT);
+			this.homeStats[i] = generatePlayerStats(i, true);
 		}
 		for(int i = 0; i < this.awayT.length; i ++){
-			this.awayStats[i] = generatePlayerStats(this.awayT[i], this.awayT);
+			this.awayStats[i] = generatePlayerStats(i, false);
 		}
 	}
 
-	public static Stats generatePlayerStats(Player player, Player[] team){
-			
-			Double[] playerOdds = generateOdds(player);
+	public Stats generatePlayerStats(int i, boolean b){
+			Double[] playerOdds = getOdds(i, b);
+			Stats playerStats = new Stats();
+			playerStats.setPlayer(this.homeT[i]);
 			int playerGoals = 0;
-			Player assister;
 			if(playerOdds[0] >= Math.random()){
 				playerGoals += 1; 
-				assister = chooseAssister(player, team);
 				for(int j = 2; j < 7; j++){
 					if((playerOdds[0]/j) >= Math.random()){
 						playerGoals += 1 ;
-						assister = chooseAssister(player, team);
 					}else break;
 				}
-				System.out.println("Goal:" + " " + player.getFirst_name() + " " + player.getSecond_name() + " " + playerGoals);
-				if(assister.getFirst_name() != null){System.out.println("Assister: " + assister.getFirst_name());}
 			}
-			
-			/*
-			int playerASSists = 0;
-			if(playerOdds[1] >= Math.random()){
-				playerASSists += 1;
-				for(int j = 0; j < 4; j++){
-					if((playerOdds[0]*0.25) >= Math.random()) playerASSists += 1;
-					else break;
-				}
-			}
-			*/
-			
+			playerStats.setGoals(playerGoals);
+
 			int playerOwnGoals = 0;
 			if(playerOdds[3] >= Math.random()) playerOwnGoals = 1;	
+			playerStats.setOwnGoals(playerOwnGoals);
 			int playerYellowCards = 0;										
 			if(playerOdds[4] >= Math.random()) playerYellowCards = 1;
 			int playerRedCards = 0;
 			if(playerOdds[5] >= Math.random()){ playerRedCards = 1; playerYellowCards = 0;}
-			//hér vantar að reikna saves, penaltySaves, penaltyMisses með svipuðum aðferðum 
-			
-			Stats playerStats = new Stats(playerGoals, 0, playerOwnGoals, playerYellowCards,
-			playerRedCards, 0, 0, 0, 0, 0, 0, 0, player);
+			playerStats.setrCards(playerRedCards);
+			playerStats.setyCards(playerYellowCards);
 			
 		return playerStats;
 	}
