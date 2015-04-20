@@ -171,7 +171,7 @@ public class League {
 		League mainLeague = makeLeag();
 		playRound(mainLeague);
 		
-		System.out.println("fukkin virkar maður!!");
+		System.out.println("Allt Virkar!!!");
 		
 		
 	}

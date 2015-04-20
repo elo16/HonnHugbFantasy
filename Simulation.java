@@ -6,6 +6,8 @@ public class Simulation {
 	Stats[] awayStats;
 	Double[][] homeOdds;
 	Double[][] awayOdds;
+	int homeGoals;
+	int awayGoals;
 	
 	public Simulation(){
 		this.homeT = null;
@@ -14,6 +16,8 @@ public class Simulation {
 		this.awayStats = null;
 		this.homeOdds = null;
 		this.awayOdds = null;
+		this.homeGoals = 0;
+		this.awayGoals = 0;
 	}
 	
 	public Simulation(Player[] h, Player[] a){
@@ -52,18 +56,12 @@ public class Simulation {
 	
 	
 	public void runSim(){
-		/*
-		Player[] homeInTeam = choosePlayers(this.homeT);
-		Player[] awayInTeam = choosePlayers(this.awayT);
-		Stats[] HomeStats = new Stats[homeInTeam.length];
-		Stats[] AwayStats = new Stats[awayInTeam.length];
-		*/
 		
 		generateTeamOdds();
 		generateTeamStats();
 		
-		int homeGoals = calcGoals(this.homeStats, this.homeT);
-		int awayGoals = calcGoals(this.awayStats, this.awayT);
+		this.homeGoals = calcGoals(this.homeStats, this.homeT);
+		this.awayGoals = calcGoals(this.awayStats, this.awayT);
 		
 		if(homeGoals == 0){
 			for(int i = 0; i < this.awayStats.length; i ++){
@@ -92,27 +90,40 @@ public class Simulation {
 	}
 	
 	public String[] getGoals(int n){
-		int num = n;
-		String[] g = new String[n];
-			for(int i = 0; i < homeT.length; i++){
-				if(homeStats[i].getGoals() > 0){
-					g[num-1] = "" +homeStats[i].getGoals() +" "+ homeStats[i].getPlayer().getFirst_name()
-					+ " " + homeStats[i].getPlayer().getSecond_name();
-					num -= homeStats[i].getGoals();
-					if(homeStats[i].getGoals() > 1){i+= homeStats[i].getGoals()-1;}
-					if(num == 0){break;}
-				}
+		if(n == 0){String[] g = new String[1];
+		g[0] = "No Goals";
+		return g;}
+		
+		
+		
+		int combos = 0;
+		for(int i = 0; i < homeT.length; i++){
+			if(homeStats[i].getGoals() > 1){combos++;}
+		}
+		for(int i = 0; i < awayT.length; i++){
+			if(awayStats[i].getGoals() > 1){combos++;}
+		}
+		String[] g = new String[n-combos];
+		int aaaa = n-combos;
+		for(int i = 0; i < homeT.length; i++){
+			if(homeStats[i].getGoals() > 0){
+				g[aaaa-1] = "" +homeStats[i].getGoals() +" "+ homeStats[i].getPlayer().getFirst_name()
+				+ " " + homeStats[i].getPlayer().getSecond_name();
+				aaaa--;
+				//if(homeStats[i].getGoals() > 1){i+= homeStats[i].getGoals()-1;}
+				if(aaaa <= 0){break;}
 			}
-			for(int i = 0; i < awayT.length; i++){
-				if(awayStats[i].getGoals() > 0){
-					g[num-1] = "" +awayStats[i].getGoals() + " " + awayStats[i].getPlayer().getFirst_name()
-					+ " " + awayStats[i].getPlayer().getSecond_name();
-					num -= awayStats[i].getGoals();
-					if(awayStats[i].getGoals() > 1){i+= awayStats[i].getGoals()-1;}
-					if(num == 0){break;}
-				}
+		}		
+		for(int i = 0; i < awayT.length; i++){
+			if(awayStats[i].getGoals() > 0){
+				g[aaaa-1] = "" +awayStats[i].getGoals() + " " + awayStats[i].getPlayer().getFirst_name()
+				+ " " + awayStats[i].getPlayer().getSecond_name();
+				//if(awayStats[i].getGoals() > 1){i+= awayStats[i].getGoals()-1;}
+				aaaa--;
+				if(aaaa <= 0){break;}
 			}
-		return g;
+		}
+	return g;
 	}
 	
 	public void setCleanSheets(Stats[] team){
@@ -151,6 +162,14 @@ public class Simulation {
 		return odds;
 	}
 	
+	public int getHomeGoals(){
+		return this.homeGoals;
+	}
+	
+	public int getAwayGoals(){
+		return this.awayGoals;
+	}
+	
 	public void generateTeamOdds(){
 		this.homeOdds = new Double[this.homeT.length][7];
 		this.awayOdds = new Double[this.awayT.length][7];
@@ -187,8 +206,8 @@ public class Simulation {
 				assists += Double.parseDouble(history[i][3]);
 				cleansheet += Double.parseDouble(history[i][4]);
 				owngoals += Double.parseDouble(history[i][6]);
-				yellowcards += Double.parseDouble(history[i][7]);
-				redcards += Double.parseDouble(history[i][9]);
+				yellowcards += Double.parseDouble(history[i][9]);
+				redcards += Double.parseDouble(history[i][10]);
 			}
 			//deilt með 90 til að reikna líkur á hverjum leik en ekki hverri mínútu
 			double oddsscoring = goals/(minutes/90); 

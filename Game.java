@@ -5,10 +5,8 @@ public class Game {
 	private Team awayTeam;
 	private int htScore;
 	private int atScore;
-	Player[] goalScorers;
-	Player[] assisters;
-	private Stats[] HomeStats;
-	private Stats[] AwayStats;
+	//private Stats[] HomeStats;
+	//private Stats[] AwayStats;
 
 	
 	public Game(){
@@ -50,50 +48,23 @@ public class Game {
 	public int getatScore() {
 		return this.atScore;
 	}
-	
-	public void setGoalScorers(Player[] p){
-		this.goalScorers = p;
-	}
-	public Player[] getGoalScorers(){
-		return this.goalScorers;
-	}
-	public void setAssisters(Player[] p){
-		this.assisters = p;
-	}
-	public Player[] getAssisters(){
-		return this.assisters;
-	}
 
 	public void playGame(){		
 		Simulation sim = new Simulation(this.homeTeam.getPlayers(), this.awayTeam.getPlayers());
 
 		sim.runSim();
 		
-		int homeGoals = 0;
-		int awayGoals = 0;
-		
-		for(int i = 0; i < HomeStats.length; i ++){
-			homeGoals += HomeStats[i].getGoals();
-		}
-		for(int i = 0; i < AwayStats.length; i ++){
-			awayGoals += AwayStats[i].getGoals();
-		}
-		if(homeGoals == 0){
-			for(int i = 0; i < AwayStats.length; i ++){
-				AwayStats[i].setCleanSheets(1);
-			}
-		}
-		if(awayGoals == 0){
-			for(int i = 0; i < HomeStats.length; i ++){
-				HomeStats[i].setCleanSheets(1);
-			}
-		}
+		int homeGoals = sim.getHomeGoals();
+		int awayGoals = sim.getAwayGoals();
 		
 		set_htScore(homeGoals);
 		set_atScore(awayGoals);
 		
 		System.out.println(this.homeTeam.getTeamName() + " " + homeGoals + " - " + awayGoals +" " + this.awayTeam.getTeamName());
-		String[] printer = sim.getGoals(homeGoals +awayGoals);
+		System.out.println("");
+		String[] printer = sim.getGoals(homeGoals + awayGoals);
+		System.out.println("");
+		System.out.println("Goals by:");
 		for(int i = 0; i < printer.length; i++){
 			System.out.println(printer[i]);
 		}
